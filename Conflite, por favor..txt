@@ -1,1 +1,0 @@
-Quebra tudo (Modificações no arquivo, com o intuito de gerar um merge conflict).
