@@ -9,24 +9,38 @@ public class MainCorrida {
     
 	public static void main(String[] args) {
         int cricketCount = 0;
+        int teamCount = 0;
+        int desiredCricketCountbyTeam = 2;
+        
         Scanner scanner = new Scanner(System.in);
         System.out.println("Quantos grilos se juntarão a essa corrida? ");  
         cricketCount = scanner.nextInt();
         System.out.println("Grilos na corrida " + cricketCount);
         System.out.println("Qual será a distância da corrida? ");
+        
+        
         finishLine = scanner.nextInt();
 
         ThreadController threads[] = null;
         Cricket[] cricketMain = new Cricket[cricketCount];
         
+        
+
+        if(cricketCount % desiredCricketCountbyTeam == 0)
+        	teamCount = (int)(cricketCount / desiredCricketCountbyTeam);
+        else
+        	teamCount = (int) Math.ceil(cricketCount / desiredCricketCountbyTeam); 
+        
+        
+        
+		System.out.println("Times : " + teamCount );
         for(int i = 0; i < cricketCount; i++) {
-        	cricketMain[i] = new Cricket("Grilo_" + (i+1));
+        	
+        	cricketMain[i] = new Cricket("Grilo_" + (i+1),  i % teamCount);
         }
         
-        
+
         IniciarCorrida(cricketCount, threads, cricketMain);
-        
-        
 	}
 	
     public static void IniciarCorrida(int cricketsCount, ThreadController[] thread, Cricket[] cricket) {
