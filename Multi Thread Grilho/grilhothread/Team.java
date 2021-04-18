@@ -16,11 +16,13 @@ public class Team {
 	}
 	public void Finish() {
 
-		System.out.println("Time " + (id+1) + ": Total de pulos: " + totalJumps + " Distância Percorrida: " + totalTraversedDistance + "cm");
+		System.out.println("Time " + (id+1) + " : Total de pulos: " + totalJumps + " Distância Percorrida: " + totalTraversedDistance + "cm");
+		
+	}
+	public void ShowFinalWinner() {
 		
 		if(winner) {
 			System.out.println("Time " + (id+1) + " foi o vencedor");
 		}
-		
 	}
 }

@@ -9,6 +9,7 @@ public class MainCorrida {
 	public static Team[] teams;
     static int teamCount = 0;
     static boolean winnerDeclared = false;
+    static int finishPlace = 1;
     
 	public static void main(String[] args) {
         int cricketCount = 0;
@@ -79,6 +80,11 @@ public class MainCorrida {
 		{
 			teams[i].Finish();
 		}
+		for(int i = 0; i < teamCount; i++) 
+		{
+			teams[i].ShowFinalWinner();
+			
+		}
     }
 
     public static void Race(int cricketsCount, ThreadController[] thread, Cricket[] cricket) {
@@ -89,7 +95,8 @@ public class MainCorrida {
     			if(cricket[i].currentPosition >= finishLine) 
     			{	
     			cricketsThatFinished ++;
-    			System.out.println("O " + cricket[i].cricketName +" alcançou a linha de chegada com " + cricket[i].jumpCount + " pulos.");
+    			System.out.println("O " + cricket[i].cricketName +" foi o "+ finishPlace +"º colocado com " + cricket[i].jumpCount + " pulos.");
+    			finishPlace++;
     			cricket[i].finalizou = true;
     			if(!winnerDeclared) {
     				cricket[i].Winner();
