@@ -6,10 +6,12 @@ public class MainCorrida {
 
     static int cricketsThatFinished = 0;
     static int finishLine = 200;
+	public static Team[] teams;
+    static int teamCount = 0;
+    static boolean winnerDeclared = false;
     
 	public static void main(String[] args) {
         int cricketCount = 0;
-        int teamCount = 0;
         int desiredCricketCountbyTeam = 2;
         
         Scanner scanner = new Scanner(System.in);
@@ -24,23 +26,30 @@ public class MainCorrida {
         ThreadController threads[] = null;
         Cricket[] cricketMain = new Cricket[cricketCount];
         
-        
 
-        if(cricketCount % desiredCricketCountbyTeam == 0)
+        if(cricketCount % desiredCricketCountbyTeam == 0) {
         	teamCount = (int)(cricketCount / desiredCricketCountbyTeam);
-        else
+        }
+        else {
         	teamCount = (int) Math.ceil(cricketCount / desiredCricketCountbyTeam); 
-        
-        
+        }
+
+        teams = new Team[teamCount];      
         
 		System.out.println("Times : " + teamCount );
+		
         for(int i = 0; i < cricketCount; i++) {
         	
-        	cricketMain[i] = new Cricket("Grilo_" + (i+1),  i % teamCount);
+        	cricketMain[i] = new Cricket("Grilo_" + (i+1),  i % teamCount);;
+        	
         }
+        for(int i = 0; i < teamCount; i++) {
+        	
+        teams[i] = new Team(i);
         
+        }
+        IniciarCorrida(cricketCount, threads, cricketMain);	
 
-        IniciarCorrida(cricketCount, threads, cricketMain);
 	}
 	
     public static void IniciarCorrida(int cricketsCount, ThreadController[] thread, Cricket[] cricket) {
@@ -62,9 +71,14 @@ public class MainCorrida {
               e.printStackTrace();
           }
         }
-    	while(cricketsThatFinished <= cricketsCount) {
+        
+    	while(cricketsThatFinished < cricketsCount) {
     	Race(cricketsCount, thread, cricket);    	
     	}
+		for(int i = 0; i < teamCount; i++) 
+		{
+			teams[i].Finish();
+		}
     }
 
     public static void Race(int cricketsCount, ThreadController[] thread, Cricket[] cricket) {
@@ -77,6 +91,10 @@ public class MainCorrida {
     			cricketsThatFinished ++;
     			System.out.println("O " + cricket[i].cricketName +" alcançou a linha de chegada com " + cricket[i].jumpCount + " pulos.");
     			cricket[i].finalizou = true;
+    			if(!winnerDeclared) {
+    				cricket[i].Winner();
+    				winnerDeclared = true;
+    				}
     			}
     			else 
     			{
