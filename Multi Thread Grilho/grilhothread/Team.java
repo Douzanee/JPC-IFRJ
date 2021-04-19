@@ -1,18 +1,32 @@
 package grilhothread;
 
-public class Team {    
+import java.util.concurrent.Semaphore;
+
+public class Team {   
+	Semaphore mutex;
 	public Team(int id) {
 	this.id = id;
+	this.mutex = new Semaphore(1);
 	}
 	
 	int id = 0;
     boolean winner = false;
     int totalJumps = 0;
     int totalTraversedDistance;
+  
 
 	public void Update(int distance) {
+		try {
+		mutex.acquire();
 		totalJumps += 1;
 		totalTraversedDistance += distance;
+		}
+		catch(InterruptedException e1) {
+            e1.printStackTrace();
+		}
+		finally {
+		mutex.release();
+		}
 	}
 	public void Finish() {
 
@@ -23,6 +37,8 @@ public class Team {
 		
 		if(winner) {
 			System.out.println("Time " + (id+1) + " foi o vencedor");
+
+			System.out.println("Fim da Corrida!");
 		}
 	}
 }
