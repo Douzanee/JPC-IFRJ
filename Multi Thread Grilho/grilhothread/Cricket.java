@@ -7,7 +7,7 @@ public class Cricket{
 	public Cricket(String name, int time) {
 		this.cricketName = name;
 		this.teamID = time;
-		this.controller = new Semaphore(8);
+		this.controller = new Semaphore(3);
 	}
 	Semaphore controller;
     Team teams[] = null;
@@ -20,7 +20,7 @@ public class Cricket{
 	int teamID = 0;
 	boolean first = false;
 	
-	public void Jump() {
+	public synchronized void Jump() {
 		try {
 			controller.acquire();
 			movementDistance = rand.nextInt(70);

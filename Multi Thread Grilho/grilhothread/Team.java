@@ -15,7 +15,7 @@ public class Team {
     int totalTraversedDistance;
   
 
-	public void Update(int distance) {
+	public synchronized void Update(int distance) {
 		try {
 		mutex.acquire();
 		totalJumps += 1;

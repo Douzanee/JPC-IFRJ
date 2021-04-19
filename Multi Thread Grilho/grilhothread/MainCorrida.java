@@ -26,6 +26,7 @@ public class MainCorrida {
 
         ThreadController threads[] = null;
         Cricket[] cricketMain = new Cricket[cricketCount];
+        scanner.close();
         
 
         if(cricketCount % desiredCricketCountbyTeam == 0) {
